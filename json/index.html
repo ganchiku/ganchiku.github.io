@@ -1,55 +1,79 @@
-<!DOCTYPE HTML>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>JQuery JSONView</title>
+  <title>JSONView</title>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   <link rel="stylesheet" href="jquery.jsonview.css" />
-  <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="jquery.jsonview.js"></script>
+  <style type="text/css">
+    .row-center {
+      text-align:center;
+      letter-spacing:-0.4em;
+    }
+    .row-center > [class*='col-'] {
+      display:inline-block;
+      letter-spacing:0;
+      vertical-align:top;
+      float:none !important;
+    }
+    .row-center.va-middle > [class*='col-'] {
+      vertical-align:middle;
+    }
+  </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row row-center va-middle">
+            <div class="col-md-5">
+                <div>
+                    <h1>JSON text</h1>
+                    <textarea class="form-control" id="text" style="text-align:left;font-size:1.2em;height:600px"></textarea>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-sm" id="convert-btn" style="width:35px;margin:10px;">=&gt;</button>
+                <br>
+                <button class="btn btn-sm" id="collapse-btn" style="width:35px;margin:10px;">-</button>
+                <br>
+                <button class="btn btn-sm" id="expand-btn" style="width:35px;margin:10px;">+</button>
+                <br>
+                <button class="btn btn-sm" id="toggle-btn" style="width:35px;margin:10px;">+/-</button>
+             </div>
+             <div class="col-md-6">
+                <div>
+                    <h1>Result</h1>
+                    <div id="result" style="text-align:left;height:600px;border:1px dashed #aaa;padding:10px;overflow:scroll"></div>
+                </div>
+            </div>
+        </div>
+        <div style="margin:20px 0;text-align:right;">JSON viewer for self</div>
+    </div>
   <script type="text/javascript">
-    var json = {
-      "hey": "guy",
-      "anumber": 243,
-      "anobject": {
-        "whoa": "nuts",
-        "anarray": [1, 2, "thr<h1>ee"],
-        "more":"stuff"
-      },
-      "awesome": true,
-      "bogus": false,
-      "meaning": null,
-      "japanese":"明日がある。",
-      "link": "http://jsonview.com",
-      "notLink": "http://jsonview.com is great",
-      "multiline": ['Much like me, you make your way forward,',
-        'Walking with downturned eyes.',
-        'Well, I too kept mine lowered.',
-        'Passer-by, stop here, please.'].join("\n")
-    };
-    $(function() {
-      $("#json").JSONView(json);
+      (function($) {
+       $('#convert-btn').on('click', function() {
+         try {
+           $("#result").JSONView($('#text').val() || {});
+         } catch(err) {
+           $("#result").html('<h1>Wrong JSON Format...</h1>');
+         };
+      });
 
-      $("#json-collapsed").JSONView(json, { collapsed: true, nl2br: true, recursive_collapser: true });
-
-      $('#collapse-btn').on('click', function() {
-        $('#json').JSONView('collapse');
+     $('#collapse-btn').on('click', function() {
+         console.log("AA");
+        $('#result').JSONView('collapse');
       });
 
       $('#expand-btn').on('click', function() {
-        $('#json').JSONView('expand');
+        $('#result').JSONView('expand');
       });
 
       $('#toggle-btn').on('click', function() {
-        $('#json').JSONView('toggle');
+        $('#result').JSONView('toggle');
       });
-
-    });
+    })(jQuery);
   </script>
-</head>
-<body>
-  <button id="collapse-btn">Collapse</button>
-  <button id="expand-btn">Expand</button>
-  <button id="toggle-btn">Toggle</button>
-  <div id="json"></div>
 </body>
 </html>
