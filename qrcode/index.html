@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>QRCode Generator</title>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <script type="text/javascript" src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="jquery.qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>QRCode generator</h1>
+            <div class="col-md-12">
+                <textarea class="form-control" id="text" rows="3"></textarea>
+            </div>
+            <div class="col-md-12 text-center" style="margin:20px 0;">
+                <button class="btn btn-lg btn-primary" id="convert-btn">To QR code</button>
+            </div>
+            <div class="col-md-12 text-center" style="margin:20px 0;">
+                <div id="qrcode"></div>
+            </div>
+        </div>
+    </div>
+  <script type="text/javascript">
+      (function($) {
+       $('#convert-btn').on('click', function() {
+           $('#qrcode').empty();
+           $('#qrcode').qrcode($('#text').val());
+      });
+    })(jQuery);
+  </script>
+</body>
+</html>
